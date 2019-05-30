@@ -1,0 +1,54 @@
+<template>
+    <div v-if="this.pelicula">
+        <h4>Detalles</h4>
+        <div>
+        <label> Nombre: </label> {{this.pelicula.nombre}}
+        </div>
+        <div>
+        <label> Genero: </label> {{this.pelicula.genero}}
+        </div>
+        <div>
+        <label> Clasificación: </label> {{this.pelicula.calificacion}}
+        </div>
+        <div>
+        <label> Tipo: </label> {{this.pelicula.tipo}}
+        </div>
+        <div>
+        <h4>SINOPSIS</h4>
+        <label> </label> {{this.pelicula.sinopsis}}
+        </div>
+
+        <span class="button is-small btn-danger" v-on:click="eliminarPelicula()">Eliminar</span>
+   </div>
+  <div v-else>
+    <br/>
+    <p>Por favor seleccione una pelicula...</p>
+  </div>
+</template>
+
+<script>
+import http from "../http-common";
+ 
+export default {
+  name: "pelicula",
+  props: ["pelicula"],
+  methods: {
+       eliminarPelicula() {
+      http
+        .delete("/pelicula/" + this.pelicula._id)
+        .then(response => {
+          // eslint-disable-next-line no-console
+          console.log(response.data);
+          this.$emit("refreshData");
+          this.$router.push('/');
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
+  }
+};
+</script>
+
+
+
