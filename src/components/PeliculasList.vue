@@ -2,13 +2,13 @@
   <div class="list row">
     <div class="col-md-6">
       <h4>Lista de Peliculas</h4>
-      <ul>
-        <li v-for="(pelicula, index) in peliculas" :key="index">
+      <ul class="list-group">
+        <li class="list-group-item" v-for="(pelicula, index) in peliculas" :key="index">
           <router-link :to="{
             name: 'pelicula-detalles',
             params: { pelicula: pelicula, id: pelicula._id }
             }">
-            {{pelicula.nombre}}
+            <div @click="$router.push('pelicula-detalles')"> {{pelicula.nombre}}</div>
           </router-link>
         </li>
       </ul>
@@ -68,7 +68,7 @@ export default {
 <style>
 .list {
   text-align: left;
-  max-width: 450px;
+  max-width: 1140px;
   margin: auto;
 }
 </style>

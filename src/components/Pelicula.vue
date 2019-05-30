@@ -2,13 +2,16 @@
     <div v-if="this.pelicula">
         <h4>Detalles</h4>
         <div>
+        <label> </label> {{this.pelicula.imagen}}
+        </div>
+        <div>
         <label> Nombre: </label> {{this.pelicula.nombre}}
         </div>
         <div>
         <label> Genero: </label> {{this.pelicula.genero}}
         </div>
         <div>
-        <label> Clasificación: </label> {{this.pelicula.calificacion}}
+        <label> Calificación: </label> {{this.pelicula.calificacion}}
         </div>
         <div>
         <label> Tipo: </label> {{this.pelicula.tipo}}
