@@ -1,5 +1,5 @@
 <template>
-  <div class="submitform">
+  <div class="submitform" @submit="actualizar">
     <div v-if="!submitted">
         <div class="form-group">
           <label for="nombre">Nombre</label>
@@ -27,12 +27,11 @@
         </div>
     
     
-        <button v-on:click="guardarPelicula" class="btn btn-info">Aceptar</button>
+        <button v-on:click="actualizar" type="submit" class="btn btn-info">Aceptar</button>
     </div>
     
     <div v-else>
       <h4>Operacion exitosa</h4>
-      <button class="btn btn-info" v-on:click="nuevaPelicula">Agregar</button>
     </div>
   </div>
 </template>
@@ -41,23 +40,15 @@
 import http from "../http-common";
  
 export default {
-  name: "agregar-pelicula",
+  name: "actualizar-pelicula",
   data() {
     return {
-      pelicula: {
-        id: 0,
-        nombre: "",
-        genero: "",
-        calificacion: 0,
-        tipo: "",
-        sinopsis: ""
-      },
-      submitted: false
+      pelicula:{}
     };
   },
   methods: {
     /* eslint-disable no-console */
-    guardarPelicula() {
+    actualizar() {
       var data = {
         nombre: this.pelicula.nombre,
         genero: this.pelicula.genero,
@@ -67,7 +58,7 @@ export default {
       };
  
       http
-        .post("/peliculas", data)
+        .put("/peliculas/" + this.$route.params.id, data)
         .then(response => {
           this.pelicula.id = response.data.id;
           console.log(response.data);
@@ -77,10 +68,27 @@ export default {
         });
  
       this.submitted = true;
+      this.$router.push({
+        name: 'peliculas'});
     },
-    nuevaPelicula() {
+    actualizarPelicula() {
       this.submitted = false;
       this.pelicula = {};
+    },
+    retrievePeliculas() {
+      http
+        .get("/peliculas/actualizar/" + this.$route.params.id)
+        .then(response => {
+          this.peliculas = response.data; // JSON are parsed automatically.
+          console.log(response.data);
+        })
+        .catch(e => {
+          /* eslint-disable no-console */
+          console.log(e);
+        });
+    },
+    mounted() {
+    this.retrievePeliculas();
     }
     /* eslint-enable no-console */
   }

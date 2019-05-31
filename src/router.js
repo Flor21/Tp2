@@ -4,6 +4,7 @@ import PeliculasList from "./components/PeliculasList.vue";
 import AgregarPelicula from "./components/AgregarPelicula.vue";
 import BusquedaPelicula from "./components/BusquedaPelicula.vue";
 import Pelicula from "./components/Pelicula.vue";
+import ActualizarPelicula from "./components/ActualizarPelicula"
 
 Vue.use(Router);
 
@@ -33,6 +34,11 @@ export default new Router({
         path: "/buscar",
         name: "buscar",
         component: BusquedaPelicula
+    },
+    {
+        path: "/actualizar/:id",
+        name: "actualizar",
+        component: ActualizarPelicula
     }
     ]
 });

@@ -1,6 +1,6 @@
 <template>
   <div class="list row">
-    <div class="col-md-6">
+    <div href="#" class="col-md-6 text-info">
       <h4>Lista de Peliculas</h4>
       <ul class="list-group">
         <li class="list-group-item" v-for="(pelicula, index) in peliculas" :key="index">
@@ -8,7 +8,7 @@
             name: 'pelicula-detalles',
             params: { pelicula: pelicula, id: pelicula._id }
             }">
-            <div @click="$router.push('pelicula-detalles')"> {{pelicula.nombre}}</div>
+            <div style="color: #015d66" @click="$router.push('pelicula-detalles')"> {{pelicula.nombre}}</div>
           </router-link>
         </li>
       </ul>
@@ -21,7 +21,7 @@
  
 <script>
 import http from "../http-common";
-import axios from "axios";
+
  
 export default {
   name: "peliculas-list",
@@ -40,19 +40,11 @@ export default {
           console.log(response.data);
         })
         .catch(e => {
+          /* eslint-disable no-console */
           console.log(e);
         });
     },
-    forzarActualizacion(){
-      this.$forceUpdate();
-    },
     //esto es para probar sin la api
-    get(){
-      axios.get("Pelicula.json")
-      .then(response => {
-        this.peliculas=response.data
-      })
-    },
     refreshList() {
       this.retrievePeliculas();
     }
@@ -60,7 +52,6 @@ export default {
   },
   mounted() {
     this.retrievePeliculas();
-    this.get();
   }
 };
 </script>

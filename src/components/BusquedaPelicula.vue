@@ -6,7 +6,7 @@
     </div>
  
     <div class="btn-group">
-      <button v-on:click="buscarPeliculas" class="btn btn-success">Buscar</button>
+      <button v-on:click="buscarPeliculas" class="btn btn-info">Buscar</button>
     </div>
  
     <ul class="search-result">
@@ -32,7 +32,7 @@ export default {
     /* eslint-disable no-console */
     buscarPeliculas() {
       http
-        .get("/peliculas/nombre/" + this.nombre)
+        .get("/peliculas/" + this.nombre)
         .then(response => {
           this.peliculas = response.data; // JSON are parsed automatically.
           console.log(response.data);

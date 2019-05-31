@@ -21,7 +21,8 @@
         <label> </label> {{this.pelicula.sinopsis}}
         </div>
 
-        <span class="button is-small btn-danger" v-on:click="eliminarPelicula()">Eliminar</span>
+        <span class="btn btn-danger" v-on:click="eliminarPelicula()">Eliminar</span>
+        <span class="btn btn-info" v-on:click="actualizarPelicula(pelicula._id)">Actualizar</span>
    </div>
   <div v-else>
     <br/>
@@ -38,7 +39,7 @@ export default {
   methods: {
        eliminarPelicula() {
       http
-        .delete("/pelicula/" + this.pelicula._id)
+        .delete("/peliculas/" + this.pelicula._id)
         .then(response => {
           // eslint-disable-next-line no-console
           console.log(response.data);
@@ -46,8 +47,15 @@ export default {
           this.$router.push('/');
         })
         .catch(e => {
+          /* eslint-disable no-console */
           console.log(e);
         });
+    },
+    actualizarPelicula(peliculaID) {
+      this.$router.push({
+        name: 'actualizar',
+        params: { id: peliculaID}
+      });
     }
   }
 };
